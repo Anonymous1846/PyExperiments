@@ -33,10 +33,10 @@ def hex_to_rgb(hex_code):
         #the bytes method return a series of immutable bytes ranging from 0 to 255
         #and then returned as a tuple !
         return (r,g,b)
+
 def string_to_binary(the_string):
-        pass
-def binary_to_string():
-        pass
+        return ''.join(tuple(map(ord,(i for i in the_string))))
+
 
 def encrypt():
 	pass
@@ -47,6 +47,7 @@ while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
 		print(rgb_to_hex(12,12,12))
+		string_to_binary('Hello')
 	elif choice==2:
 		print(hex_to_rgb(rgb_to_hex(12,12,12)))
 	else:
