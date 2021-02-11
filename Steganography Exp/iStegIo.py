@@ -26,6 +26,10 @@ def hex_to_rgb(hex_code):
         #the bytes method return a series of immutable bytes ranging from 0 to 255
         #and then returned as a tuple !
         return (r,g,b)
+def string_to_binary():
+        pass
+def binary_to_string():
+        pass
 
 def encrypt():
 	pass
