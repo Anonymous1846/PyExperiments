@@ -8,6 +8,13 @@ import binascii
 #most of the times the file/image may not be in the same directory as that of the Script File !;
 from tkinter.filedialog import *
 import tkinter.filedialog as f
+#the module for ascii art 
+import pyfiglet
+heading=pyfiglet.figlet_format('i S t e g I O')
+print(heading)
+#multiplying the tuple containing the - 50 times
+print('VERSION 1.0')
+print(*50*('-',))
 '''
 params: the r,g and b values of the color pixel(s)
 return:the hexadecimal value of the corresponding color !
@@ -26,7 +33,7 @@ def hex_to_rgb(hex_code):
         #the bytes method return a series of immutable bytes ranging from 0 to 255
         #and then returned as a tuple !
         return (r,g,b)
-def string_to_binary():
+def string_to_binary(the_string):
         pass
 def binary_to_string():
         pass
