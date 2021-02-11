@@ -21,7 +21,11 @@ return: tuple containing the rgb values
 in the function we have gave the hex code staring from 1 because we have to avoid the # symbol !
 '''
 def hex_to_rgb(hex_code):
-	return tuple()
+        #the pound symbol is removed by starting the string from 1st index !
+        r,g,b=bytes.fromhex(hex_code[1:])
+        #the bytes method return a series of immutable bytes ranging from 0 to 255
+        #and then returned as a tuple !
+        return (r,g,b)
 
 def encrypt():
 	pass
@@ -33,7 +37,7 @@ while True:
 	if choice==1:
 		print(rgb_to_hex(12,12,12))
 	elif choice==2:
-		print(hex_to_rgb('#120FFF'))
+		print(hex_to_rgb(rgb_to_hex(12,12,12)))
 	else:
 		break
 		exit()
