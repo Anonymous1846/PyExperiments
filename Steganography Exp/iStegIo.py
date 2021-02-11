@@ -21,7 +21,7 @@ return: tuple containing the rgb values
 in the function we have gave the hex code staring from 1 because we have to avoid the # symbol !
 '''
 def hex_to_rgb(hex_code):
-	return tuple(map(ord,hex_code[1:].decode('hex')))
+	return tuple()
 
 def encrypt():
 	pass
@@ -31,10 +31,9 @@ def decrypt():
 while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
-		
 		print(rgb_to_hex(12,12,12))
 	elif choice==2:
-		decrypt()
+		print(hex_to_rgb('#120FFF'))
 	else:
 		break
 		exit()
