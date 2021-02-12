@@ -8,6 +8,7 @@ import binascii
 #most of the times the file/image may not be in the same directory as that of the Script File !;
 from tkinter.filedialog import *
 import tkinter.filedialog as f
+import tkinter
 #the module for ascii art 
 import pyfiglet
 heading=pyfiglet.figlet_format('i S t e g I O')
@@ -48,23 +49,6 @@ representation of the hex in %x %x %x
 '''
 def binary_to_string(binary):
 	return binascii.unhexlify('%x' % (int('0b'+ binary ,2))).decode()
-
-def encrypt(hex_code,digit):
-	if hex_code[-1] in range(0,6):
-		#we will append the digit or the information at the end of our hex
-		hex_code=hexcode[:-1]+digit
-		return hex_code
-	else:
-		#otherise return Nothing !
-		return None
-def decrypt(hex_code):
-	if hex_code[-1] in ['0','1']:return hex_code[-1]
-	else:return None
-
-def hide():
-	pass
-def extract():
-	pass
 '''
 the function to convert the image into png, so that it can work properly in this case !
 params: the jpeg image
@@ -76,14 +60,88 @@ def convert_to_png(the_jpeg_image):
 	working_image=Image.open(the_jpeg_image)
 	working_image.save(some_image(the_jpeg_image))
 	return working_image
+def encrypt(hex_code,digit):
+	#if it lies in the raneg of 1-5
+	if hex_code[-1] in range(0,6):
+		#we will append the digit or the information at the end of our hex
+		hex_code=hexcode[:-1]+digit
+		return hex_code
+	else:
+		#otherise return Nothing !
+		return None
+def decrypt(hex_code):
+	if hex_code[-1] in ['0','1']:return hex_code[-1]
+	else:return None
+'''
+Actual helper function for the below hide function
+'''
+def _hide(filename,message,output_filename):
+	#opening the image
+	image=Image.open(filename)
+	#the delimiter to know when the message ends at the blue hex value !
+	binary_data=string_to_binary(message)+'1111111111111110'
+	if image.mode in ('RGBA'):
+		image =image.convert('RGBA')
+		image_data=image.getdata()
+		new_data=[]
+		digit=0
+		for item in image_data:
+			if (digit < len(binary_data)):
+				#encoding to hexa decimal value to extract the pixel value !
+				new_pixel=encode(rgb_to_hex(item[0],item[1],item[2]),binary[digit])
+				if new_pixel is None:
+					new_data.append(item)
+				else:
+					r,g,b=hex_to_string(new_pixel)
+					new_data.append((r,g,b,255))
+					digit+=1
+			else:
+				new_data.append(item)
+		image.putdata(new_data)
+		#saving the file as png becoz the user is bound to enter the file name without extension
+		image.save(output_filename,'PNG')
+
+'''
+The function to hide the message within the png image !
+params :the source file name, the message, and the destination file name 
+return: the message hidden with the new png image !
+'''
+def hide(filename,message,output_filename):
+	if '.jpeg' in filename or '.jpg' in filename:
+		the_converted_png=convert_to_png(filename)
+		#call made to the helper function
+		_hide(the_converted_png,message,message,output_filename)
+	else:
+		_hide(filename,message,output_filename)
+'''
+params: filename, from which where we wnat to extract the secret message !
+return: the secret message!
+'''
+def extract(filename):
+	#we have to extract the message via the delimitter !
+	image =Image.open(filename)
+	binary=''
+	if image.mode in ('RGBA'):
+		image=image.convert('RGBA')
+		data=image.getdata()
+		for item in data:
+			#decoding from rgb to hex
+			digit=decode(rgb_to_hex(item[0],item[1],item[2]))
+			if digit is None:
+				pass
+			else:
+				binary+=digit
+				if binary[-16:] =='1111111111111110':
+					print('I Got It !')
+					return binary_to_string(binary[:-16])
+		return binary_to_string(binary)
+
 while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
-		print(rgb_to_hex(12,12,12))
-		print(binary_to_string(string_to_binary('Hello')))
+		convert_to_png(f.askopenfilename())
 	elif choice==2:
-		the_image=f.askopenfilename()
-		convert_to_png(the_image)
+		pass
 	else:
 		break
 		print('Exiting...... !')
