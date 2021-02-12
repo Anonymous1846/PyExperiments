@@ -60,6 +60,11 @@ def encrypt(hex_code,digit):
 def decrypt(hex_code):
 	if hex_code[-1] in ['0','1']:return hex_code[-1]
 	else:return None
+
+def hide():
+	pass
+def extract():
+	pass
 while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
