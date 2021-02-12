@@ -33,8 +33,13 @@ def hex_to_rgb(hex_code):
         #the bytes method return a series of immutable bytes ranging from 0 to 255
         #and then returned as a tuple !
         return (r,g,b)
-
+'''
+params:the string value(usually the text file to be encrypted)
+return: the binary representation of the string value (with the 0b replaced by the None)
+we use this function to convert the string value to hex 16 and finally to the binary(0b1001001110)->(100001001000)
+'''
 def string_to_binary(the_string):
+	#first we converted the str into the hex value to int64 and replace the first two 0b from the binary to None
         return bin(int(binascii.hexlify(the_string.encode()),16)).replace('0b','')
 def binary_to_string(binary):
 	pass
