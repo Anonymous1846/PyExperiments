@@ -41,19 +41,27 @@ we use this function to convert the string value to hex 16 and finally to the bi
 def string_to_binary(the_string):
 	#first we converted the str into the hex value to int64 and replace the first two 0b from the binary to None
         return bin(int(binascii.hexlify(the_string.encode()),16)).replace('0b','')
+'''
+params: binary value to be converted to string
+return: the final string values after it is first converted into int to base 2 and finally to str
+representation of the hex in %x %x %x
+'''
 def binary_to_string(binary):
-	pass
+	return binascii.unhexlify('%x' % (int('0b'+ binary ,2))).decode()
 
-def encrypt():
-	pass
+def encrypt(hex_code,digit):
+	if hex_code[-1] in range(0,6):
+		hex_code=hexcode[-1]+digit
+		return hex_code
+	else:
+		return None
 def decrypt():
-	name_of_image=f.askopenfilename()
-	print(name_of_image)
+	pass
 while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
 		print(rgb_to_hex(12,12,12))
-		print(string_to_binary('Hello'))
+		print(binary_to_string(string_to_binary('Hello')))
 	elif choice==2:
 		print(hex_to_rgb('#03FF0A'))
 	else:
