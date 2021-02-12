@@ -51,12 +51,15 @@ def binary_to_string(binary):
 
 def encrypt(hex_code,digit):
 	if hex_code[-1] in range(0,6):
-		hex_code=hexcode[-1]+digit
+		#we will append the digit or the information at the end of our hex
+		hex_code=hexcode[:-1]+digit
 		return hex_code
 	else:
+		#otherise return Nothing !
 		return None
-def decrypt():
-	pass
+def decrypt(hex_code):
+	if hex_code[-1] in ['0','1']:return hex_code[-1]
+	else:return None
 while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
