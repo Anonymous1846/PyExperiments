@@ -35,7 +35,7 @@ def hex_to_rgb(hex_code):
         return (r,g,b)
 
 def string_to_binary(the_string):
-        return ''.join(tuple(map(ord,(i for i in the_string))))
+        return bin(int(binascii.hexlify(the_string.encode()),16)).replace('0b','')
 def binary_to_string(binary):
 	pass
 
@@ -48,6 +48,7 @@ while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
 		print(rgb_to_hex(12,12,12))
+		print(string_to_binary('Hello'))
 	elif choice==2:
 		print(hex_to_rgb('#03FF0A'))
 	else:
