@@ -65,13 +65,25 @@ def hide():
 	pass
 def extract():
 	pass
+'''
+the function to convert the image into png, so that it can work properly in this case !
+params: the jpeg image
+return: the png image
+'''
+def convert_to_png(the_jpeg_image):
+	#lambda function to convert the .jpeg or jpg file to .png file !
+	some_image=lambda x:x.replace('.jpg','.png') if '.jpg' in x else x.replace('.jpeg','.png')
+	working_image=Image.open(the_jpeg_image)
+	working_image.save(some_image(the_jpeg_image))
+	return working_image
 while True:
 	choice=int(input('1)Encrypt\n2)Decrypt\n3)Exit\n'))
 	if choice==1:
 		print(rgb_to_hex(12,12,12))
 		print(binary_to_string(string_to_binary('Hello')))
 	elif choice==2:
-		print(hex_to_rgb('#03FF0A'))
+		the_image=f.askopenfilename()
+		convert_to_png(the_image)
 	else:
 		break
 		print('Exiting...... !')
