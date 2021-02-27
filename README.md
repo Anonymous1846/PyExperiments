@@ -8,4 +8,6 @@ This program can seperate the name, phone, email into seperate files for future 
 <ul>
 <li>Email Slicer: A simple application to seperate domain names and usernames.
 <b>Concepts Covered: String manipulation, Regex</b></li>
+<li>Regex Template Generator: A simple GUI application to generate the regexes for various use cases, so that we can use them for form validation and other stuff etc.
+<b>Concepts Covered: Tkinter,Dictionaries, Regex</b></li>
 </ul>
