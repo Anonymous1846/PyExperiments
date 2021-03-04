@@ -88,8 +88,11 @@ def equals_operation():
 			ans=float(num1)/float(num2)
 			text_field.insert(1.0,str(ans))
 		if operator=='m':
-			ans=int(num1.replace('\n',''))%int(num2)
-			text_field.insert(1.0,str(ans))
+			try:
+				ans=int(num1.replace('\n',''))%int(num2)
+				text_field.insert(1.0,str(ans))
+			except:
+				print('Maybe the number format is wrong !')
 		answered=True
 		
 
