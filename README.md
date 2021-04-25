@@ -10,6 +10,5 @@ This program can seperate the name, phone, email into seperate files for future 
 <b>Concepts Covered: String manipulation, Regex</b></li>
 <li>Regex Template Generator: A simple GUI application to generate the regexes for various use cases, so that we can use them for form validation and other stuff etc.
 <b>Concepts Covered: Tkinter,Dictionaries, Regex</b></li>
-<li>DynaMic: A script that helps to change the wallpaper of the desktop at an interval of 2 mins, and it copies itself to the startup folder, if it was not previously there !
-<b>Concepts Covered: Ctypes,Path, OS</b></li>
+<li>PC Utility: A simple python script that can synchronously moniter your battery and change the wallpaper.Concepst covered: OS, psutil,threading, notification,schedule, lists, random.</b></li>
 </ul>
