@@ -20,18 +20,22 @@ EXTS=['jpg','jpeg','png']
 PICS=[picture for picture in os.listdir(PIC_DIRECTORY) if any(picture.endswith(extension) for extension in EXTS)]
 if not os.path.isfile(exe_path):
 	#if it is not in the startup folder then copy it to the startup folder !
-	copyfile('./DynaMic.pyw',exe_path)	
+	copyfile('./PCUtility Tool.pyw',exe_path)
+def _change_wallpaper():
+	wallpaper=random.choice(PICS)#a random pic is chosen from the list !
+	ctypes.windll.user32.SystemParametersInfoW(20, 0,os.path.join(PIC_DIRECTORY,wallpaper), 0) #the path to the wallpapper provided in the third parameter !
+
 def change_wallpaper():
-	#a random pic is chosen from the list !
-	wallpaper=random.choice(PICS)
-	#the path to the wallpapper provided in the third parameter !
-	ctypes.windll.user32.SystemParametersInfoW(20, 0,os.path.join(PIC_DIRECTORY,wallpaper), 0)
-#the schedule library performs a particular operation every 2 minutes(can be changed !) 
-schedule.every(2).minutes.do(change_wallpaper)
-while True:
-	schedule.run_pending()
-	sleep(1)
-
-
+	schedule.every(2).minutes.do(change_wallpaper) #the schedule library performs a particular operation every 2 minutes(can be changed !)
+	while True:
+		schedule.run_pending()
+		sleep(1)
+'''
+The battery information is retrieved by the python module named psutil, which is a cross platform utility used folder
+getting the process information of the OSes.
+'''
 def check_battery_status():
-	
+	battery_info=psutil.sensors_battery()
+	print(battery_info.percent)
+
+check_battery_status()
