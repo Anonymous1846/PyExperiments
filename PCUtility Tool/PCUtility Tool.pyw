@@ -28,8 +28,8 @@ PIC_DIRECTORY=f'C:\\Users\\{current_user}\\Pictures\\Camera Roll' #the directory
 EXTS=['jpg','jpeg','png']
 PICS=[picture for picture in os.listdir(PIC_DIRECTORY) if any(picture.endswith(extension) for extension in EXTS)] #filtering out only the pictures with png, jpg, and jpeg !
 
-#if not os.path.isfile(exe_path):
-#	copyfile('./PCUtility Tool.pyw',exe_path) #if it is not in the startup folder then copy it to the startup folder !
+if not os.path.isfile(exe_path):
+	copyfile('./PCUtility Tool.pyw',exe_path) #if it is not in the startup folder then copy it to the startup folder !
 
 '''
 The helper function for randomly choose a image for the background, and the image is set using the ctypes interface
@@ -75,7 +75,7 @@ def _check_battery_status():
 	is_plugged_in = battery_info.power_plugged # grabbing the info whether the battery is is_plugged_in or not !
 	if is_plugged_in and float(battery_percentage) > 95.00:
 		notification.notify("PC Util v1.0", "Please Remove The Charging Cable, The Battery is 95%+ !", timeout = 10)
-	elif not is_plugged_in and float(battery_percentage) < 90.00:
+	elif not is_plugged_in and float(battery_percentage) < 25.00:
 		notification.notify("PC Util v1.0", "Please Plug In The Charger, Your Battery Is Less Than 25% !", timeout = 10)
 
 
@@ -92,7 +92,13 @@ def check_battery_status():
 	while  1:
 		schedule.run_pending()
 		sleep(1)
+'''
+The fucntion will excute the check status and change wallpaper function in an interval of 30 secs and 2mins respectively !
 
+Params: None
+
+Return:None
+'''
 
 def do_tasks():
 	schedule.every(30).seconds.do(_check_battery_status)
