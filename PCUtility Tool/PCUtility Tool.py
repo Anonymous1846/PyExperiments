@@ -6,10 +6,9 @@ Language:Python
 
 A Simple Python program/script which parallely moniters the battery status, and changes the backgroud wallpaper at an interval of 2 minutes !
 '''
-from win10toast import ToastNotifier
 from shutil import copyfile
 from time import sleep
-import threading
+from plyer import notification
 import schedule
 import random
 import psutil
@@ -71,16 +70,13 @@ Params:None
 Return:None
 '''
 def _check_battery_status():
-	notification=ToastNotifier()
 	battery_info=psutil.sensors_battery()
 	battery_percentage = battery_info.percent #grabbing the battery percent
 	is_plugged_in = battery_info.power_plugged # grabbing the info whether the battery is is_plugged_in or not !
 	if is_plugged_in and float(battery_percentage) > 95.00:
-		notification.show_toast("PC Util v1.0", "Please Remove The Charging Cable, The Battery is 95%+ !", duration = 10,
-  		icon_path ="./favicon.ico",threaded=True)
-	elif not is_plugged_in and float(battery_percentage) < 75.00:
-		notification.show_toast("PC Util v1.0", "Please Plug In The Charging Cable, The Battery Is Less Than 25% !", duration = 10,
-  		icon_path ="./favicon.ico",threaded=True)
+		notification.notify("PC Util v1.0", "Please Remove The Charging Cable, The Battery is 95%+ !", timeout = 10)
+	elif not is_plugged_in and float(battery_percentage) < 90.00:
+		notification.notify("PC Util v1.0", "Please Plug In The Charger, Your Battery Is Less Than 25% !", timeout = 10)
 
 
 '''
@@ -92,16 +88,17 @@ Return: None
 
 '''
 def check_battery_status():
-	schedule.every(2).seconds.do(_check_battery_status)
+	schedule.every(30).seconds.do(_check_battery_status)
 	while  1:
 		schedule.run_pending()
 		sleep(1)
 
 
-thread_wallpaper_change=threading.Thread(target=change_wallpaper)
-thread_battery_status=threading.Thread(target=check_battery_status)
-thread_wallpaper_change.start()
-thread_battery_status.start()
+def do_tasks():
+	schedule.every(30).seconds.do(_check_battery_status)
+	schedule.every(2).minutes.do(_change_wallpaper)
+	while True:
+		schedule.run_pending()
+		sleep(1)
 
-thread_wallpaper_change.join()
-thread_battery_status.join()
+do_tasks() # function to execute the scheduled tasks 
