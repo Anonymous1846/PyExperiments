@@ -4,6 +4,7 @@ GitHub: https://github.com/Anonymous1846
 Copyright: 2021
 Language:Python
 
+A Simple Python program/script which parallely moniters the battery status, and changes the backgroud wallpaper at an interval of 2 minutes !
 '''
 from win10toast import ToastNotifier
 from shutil import copyfile
@@ -16,7 +17,7 @@ import ctypes
 import sys
 import os
 
-sys.setrecursionlimit(10**6)
+sys.setrecursionlimit(10**6) #recursion limit set to 10^6 otherwise error will pop up !
 '''
 The currently logged in user is obtained then we locate his/her startup directory and check if the file is already there, if not
 then we copy the file from the current location to the startup directory.
@@ -76,10 +77,10 @@ def _check_battery_status():
 	is_plugged_in = battery_info.power_plugged # grabbing the info whether the battery is is_plugged_in or not !
 	if is_plugged_in and float(battery_percentage) > 95.00:
 		notification.show_toast("PC Util v1.0", "Please Remove The Charging Cable, The Battery is 95%+ !", duration = 10,
-  		icon_path ="./favicon.ico")
+  		icon_path ="./favicon.ico",threaded=True)
 	elif not is_plugged_in and float(battery_percentage) < 75.00:
 		notification.show_toast("PC Util v1.0", "Please Plug In The Charging Cable, The Battery Is Less Than 25% !", duration = 10,
-  		icon_path ="./favicon.ico")
+  		icon_path ="./favicon.ico",threaded=True)
 
 
 '''
